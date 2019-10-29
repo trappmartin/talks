@@ -1,0 +1,96 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{dbt}
+
+% required packages
+\RequirePackage{graphicx}
+\RequirePackage{fontspec}
+\RequirePackage{listings}
+\RequirePackage{tcolorbox}
+
+% beamer options
+\setbeameroption{hide notes}
+\setbeamertemplate{note page}[plain]
+\beamertemplatenavigationsymbolsempty
+\hypersetup{pdfpagemode=UseNone}
+
+% font
+%\setsansfont{TeX Gyre Heros}
+\setbeamerfont{note page}{family*=pplx,size=\footnotesize}
+
+\definecolor{CBOrange}{HTML}{E69F00}
+\definecolor{CBSkyBlue}{HTML}{56B4E9}
+\definecolor{CBBlue}{HTML}{0072B2}
+\definecolor{CBGreen}{HTML}{009E73}
+\definecolor{CBYellow}{HTML}{F0E442}
+\definecolor{CBRed}{HTML}{D55E00}
+\definecolor{CBPurple}{HTML}{CC79A7}
+
+% define some colors
+\definecolor{keywords}{RGB}{255,0,90}
+\definecolor{comments}{RGB}{81,81,81}
+\definecolor{offwhite}{RGB}{249,242,215}
+\definecolor{foreground}{RGB}{255,255,255}
+\definecolor{background}{RGB}{44,44,44}
+\definecolor{lightbackground}{RGB}{60,60,60}
+\definecolor{title}{RGB}{107,174,214}
+\definecolor{gray}{RGB}{200,200,200}
+\definecolor{subtitle}{RGB}{102,255,204}
+\definecolor{hilight}{RGB}{102,255,204}
+\definecolor{vhilight}{RGB}{255,111,207}
+\definecolor{lolight}{RGB}{155,155,155}
+
+% map colors to sections
+\setbeamercolor{titlelike}{fg=gray}
+\setbeamercolor{subtitle}{fg=gray}
+\setbeamercolor{institute}{fg=gray}
+\setbeamercolor{normal text}{fg=foreground,bg=background}
+\setbeamercolor{item}{fg=foreground}
+\setbeamercolor{caption name}{fg=CBYellow}
+\setbeamercolor{subitem}{fg=gray}
+\setbeamercolor{itemize/enumerate subbody}{fg=gray}
+\setbeamertemplate{itemize subitem}{{\textendash}}
+\setbeamerfont{itemize/enumerate subbody}{size=\footnotesize}
+\setbeamerfont{itemize/enumerate subitem}{size=\footnotesize}
+
+\newtcolorbox{titlebox}{colback=background,colframe=CBBlue,coltext=gray}
+\newtcolorbox{defbox}{colback=lightbackground,colframe=gray,coltext=foreground}
+
+\setbeamertemplate{title page}
+{
+  \vbox{}
+  \vfill
+  \begin{centering}
+    \begin{beamercolorbox}[sep=8pt,center]{title}
+        \begin{titlebox}
+        \usebeamerfont{title}\inserttitle
+        \end{titlebox}
+    \end{beamercolorbox}
+    \vskip1em\par
+    \begin{beamercolorbox}[sep=8pt,center]{author}
+      \usebeamerfont{author}\insertauthor
+    \end{beamercolorbox}
+    \vskip-1em\par % change here
+    \begin{beamercolorbox}[sep=8pt,center]{institute}
+      \usebeamerfont{institute}\insertinstitute
+    \end{beamercolorbox}
+    \begin{beamercolorbox}[sep=8pt,center]{date}
+      \usebeamerfont{date}\insertdate
+    \end{beamercolorbox}\vskip0.5em
+  \end{centering}
+  \vfill
+}
+
+\setbeamertemplate{section page}
+{
+    \begin{centering}
+    \begin{beamercolorbox}[sep=12pt,center]{part title}
+    \usebeamerfont{section title}\insertsection\par
+    \end{beamercolorbox}
+    \end{centering}
+}
+
+
+% some macros
+\newcommand{\subt}[1]{{\footnotesize \color{subtitle} {#1}}}
+
+\endinput
