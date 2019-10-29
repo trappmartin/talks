@@ -82,15 +82,31 @@ solid, every mark/.append style={solid}, mark=*\\%
 
 \frame{
 \begin{itemize}
-  \item Sum-product networks (SPNs) [Poon2011] are flexible density estimators and have received significant attention due to their attractive inference properties.
-  \item While parameter learning in SPNs is well developed, most structure learners are somewhat adhoc and based on intuition rather than a clear learning principle.
+  \item Sum-product networks (SPNs) [Poon2011] are flexible density estimators for complex distributions. 
   \pause
+  \item SPNs are so-called tractable probabilistic models, i.e.~they allow exact inference in linear time.
+  \pause
+  \item A critical topic learning SPNs is to learn an appropriate structure from data.
+  \item However, most structure learners are somewhat adhoc and based on intuition rather than a clear learning principle.
+  \pause
+  \item In fact, all existing approaches \emph{do not declare the global goal of structure learning}!
+ \end{itemize}
+}
+
+\frame{
+\begin{itemize}
   \item We introduce a well-principled Bayesian framework for SPN structure learning by decomposing the problem into:  \begin{enumerate}
     \item laying out a computational graph, and
      \item learning the so-called scope function over the graph.
    \end{enumerate}
    \pause 
-  \item We propose a natural parametrisation for an important and widely used special case of SPNs, incorporate the parameters into a Bayesian model, and perform posterior inference over structure and parameters jointly.
+   \item The first part is rather unproblematic, and the second part is more involved in full generality.
+   \pause
+  \item However, we propose a natural parametrisation of the scope function for a widely used special case of SPNs.
+  \pause
+  \item We show how to incorporate the parametrisation into a Bayesian model.
+  \pause
+  \item Finally, show how to perform posterior inference in such a model.
 \end{itemize}
 }
 
@@ -100,6 +116,7 @@ solid, every mark/.append style={solid}, mark=*\\%
 \begin{center}What is a Sum-Product Network?\end{center}
 \begin{itemize}
   \item Let $\X = \{X_1, \dots, X_D\}$ be set of D random variables, for which $N$ i.i.d. samples are available. 
+  \pause
   \item An SPN is a distribution over $\X$ defined as a 4-tuple $\SPN = (\graph, \scope, \w, \textcolor{CBOrange}{\theta})$.
   \begin{itemize}
     \pause
@@ -118,6 +135,7 @@ solid, every mark/.append style={solid}, mark=*\\%
 \begin{center}Computational Graph $\graph$\end{center}
 \begin{itemize}
   \item Is a connected directed acyclic graph (DAG), containing three types of nodes: sums ($\SumNode$), products ($\ProductNode$) and leaves ($\Leaf$).
+  \pause
   \item Only encodes the topological layout of the nodes, while the effective SPN structure is encoded via the scope function $\scope$.
 \end{itemize}
 \pause
@@ -131,10 +149,11 @@ solid, every mark/.append style={solid}, mark=*\\%
 \begin{center}Scope Function $\scope$\end{center}
 \begin{itemize}
   \item Let $\Nodes$ denote the set of all nodes.
+  \pause
   \item $\scope$ a function $\scope \colon \Nodes \mapsto 2^\X$ assigning each node in the graph a sub-set of X ($2^\X$ denotes the power set of $\X$).
 \end{itemize}
 \pause
-It has the following properties: 
+A scope function has to fulfil the following properties: 
 \begin{defbox}
 \begin{enumerate}
 \item If $\Node$ is the root node, then $\scope(\Node) = \X$.
@@ -167,7 +186,7 @@ Note: Completeness and decomposability are necessary for any SPN to be a well-de
 \frame{
 \begin{center}Bayesian Parameter Learning\end{center}
   \begin{itemize}
-    \item The key insight for Bayesian parameter learning [Zhao2016, Rashwan2016, Vergari2019] is that sum nodes can be interpreted as latent variables $Z_\SumNode$, clustering data instances.
+    \item The key insight for Bayesian parameter learning [Zhao2016, Rashwan2016, Vergari2019] is that \emph{sum nodes can be interpreted as latent variables} $Z_\SumNode$, clustering data instances.
   \end{itemize}
   \pause
   \begin{equation}
@@ -188,7 +207,7 @@ Note: Completeness and decomposability are necessary for any SPN to be a well-de
 \frame{
 \begin{center}Bayesian Parameter Learning (cont.)\end{center}
   \begin{itemize}
-    \item It is now conceptually straightforward to extend an SPN to a Bayesian setting, by equipping the sum-weights and leaf-parameters with suitable priors.
+    \item It is now conceptually straightforward to extend an SPN to a Bayesian setting.
   \end{itemize}
   \pause
   Generative model for Bayesian parameter learning:
@@ -205,10 +224,11 @@ Note: Completeness and decomposability are necessary for any SPN to be a well-de
 \frame{
 \begin{center}Bayesian Structure \& Parameter Learning\end{center}
   \begin{itemize}
-    \item We introduce Bayesian learning of SPNs by considering the case in which $\graph$ is a tree-shaped region graph.
+    \item For Bayesian structure \& parameter learning of SPNs we assume $\graph$ is a tree-shaped region graph.
     \pause
-    \item A region graph $\rg$ can be understood as a vectorised representation of SPNs and is a connected DAG containing two types of nodes: regions ($\region \in \regions$) and partitions ($\partition \in \partitions$).
+    \item A region graph $\rg$ is a vectorised representation of SPNs and is a connected DAG containing two types of nodes: regions ($\region \in \regions$) and partitions ($\partition \in \partitions$).
   \end{itemize}
+  \pause
   \begin{figure}
   \centering
   \includegraphics[width=\linewidth]{region-graph}
@@ -221,7 +241,7 @@ Note: Completeness and decomposability are necessary for any SPN to be a well-de
   \begin{itemize}
     \item For each data dimension d we introduce a discrete latent variable $\textcolor{CBRed}{Y}_{\partition,d}$.
     \pause
-    \item The latent variable represents a decision to assign dimension $d$ to a particular child, given that all partitions above decided to assign $d$ onto the (unique) path leading to the partition
+    \item The latent variable represents a decision to assign dimension $d$ to a particular child, given that all partitions above decided to assign $d$ onto the (unique) path leading to the partition.
     \end{itemize}
     \pause
     Generative model for joint Bayesian learning:
@@ -241,9 +261,24 @@ $\x_{\y,n}$ denotes the evaluation of $\Leaf$ on the scope induced by $\y$.
 \frame{
 \begin{center}Posterior Inference\end{center}
   \begin{itemize}
-    \item We perform Gibbs sampling alternating between i) updating parameters $\w$, $\theta$ (fixed $\y$), and ii) updating $\y$ (fixed $\w$, $\theta$) to learn Bayesian SPNs.
+    \item We perform Gibbs sampling alternating between i) updating parameters $\w$, $\textcolor{CBOrange}{\theta}$ (fixed $\y$), and ii) updating $\y$ (fixed $\w$, $\textcolor{CBOrange}{\theta}$) to learn Bayesian SPNs.
     \pause
-    \item This approach has shown to be sufficient for most real-world dataset, but more sophisticated approaches, e.g.~particle Gibbs combined with Hamiltonian Monte Carlo sampling; variational inference or posterior bootstrap, might be a interesting future avenues for large-scale problems. 
+    \item This approach has shown to be sufficient for most real-world dataset.
+    \pause
+    \item More sophisticated approaches, e.g.~particle Gibbs combined with Hamiltonian Monte Carlo sampling; variational inference or posterior bootstrap, might be a interesting future avenues for large-scale problems. 
+\end{itemize}
+}
+
+\frame{
+\begin{center}Experiments\end{center}
+ \begin{itemize}
+    \item We performed some experiments agains SOTA structure learners for SPNs on discrete, heterogeneous and data with missing values.
+    \pause
+    \item The discrete datasets are standard benchmark datasets for SPNs and contain data with up to $1556$ dimensions.
+    \item The heterogeneous datasets are UCI datasets that have been used in previous literature.
+    \pause
+    \item We evaluated against an increasing number of observations having $50\%$ dimensions missing completely at random to assess the robustness.
+    \item Note: Existing approach cannot handle missing data during structure learning, so we either removed the samples with missing data or used k-NN imputation.
 \end{itemize}
 }
 
@@ -507,9 +542,11 @@ Wine & $\textcolor{CBYellow}{-0.13}$ & $-10.12$ & $-8.62$ & $-8.65$\\
     \begin{itemize}
     \item Structure learning is an important topic in SPNs, and many promising directions have been proposed in recent years.
   \item However, most of these approaches are based on intuition and refrain from declaring an explicit and global principle to structure learning.
+    \pause
   \item In this paper, our primary motivation is to \emph{change} this practice
   \pause
   \item We phrase structure (and joint parameter) learning as Bayesian inference in a latent variable model. 
+  \pause
   \item In various experiments we show that this principled approach competes well with prior art and that we gain several benefits, such as \emph{automatic protection against overfitting}, \emph{robustness under missing data} and a natural extension to nonparametric formulations.
   \pause
   \item A critical insight for our approach is to decompose structure learning into: constructing a computational graph and separately learning the SPN's scope function.
