@@ -1,0 +1,111 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usepackage{bm}
+\usepackage{xcolor}
+
+\input{definitions.tex}
+
+\newsavebox{\genericfilt}
+\savebox{\genericfilt}{%
+\begin{tikzpicture}[font=\small, >=stealth,yscale=0.15,xscale=0.1]
+  % define normal distribution function 'normaltwo'
+  \def\normaltwo{\x,{exp((-(\x)^2)/0.5)}}
+  \draw[line width=0.25mm,domain=-1.7:1.7] plot (\normaltwo);
+\end{tikzpicture}%
+}
+
+\newsavebox{\genericfiltLarge}
+\savebox{\genericfiltLarge}{%
+\begin{tikzpicture}[font=\small, >=stealth,yscale=0.25,xscale=0.2]
+  % define normal distribution function 'normaltwo'
+  \def\normaltwo{\x,{exp((-(\x)^2)/0.5)}}
+  \draw[line width=0.25mm,domain=-1.7:1.7] plot (\normaltwo);
+\end{tikzpicture}%
+}
+
+\begin{document}
+  
+\tikzstyle{vertex}=[inner sep=0.01cm, circle, draw]
+\resizebox{!}{0.1\textheight}{
+  \begin{tikzpicture} [scale=1, auto,>=latex]
+    \path[use as bounding box] (-6.0,1.0) rectangle (6.3,-5.5);
+    
+    % Leaves
+    \node[vertex, label=below:{$\Leaf_1$},label={[xshift=0.0cm, yshift=-1.5cm]\small$\{1,2\}$}](d1) at (-5.5, -4) {\usebox{\genericfilt}};
+    \node[vertex, label=below:{$\Leaf_2$},label={[xshift=0.0cm, yshift=-1.5cm]\small$\{3,4\}$}](d2) at (-4.75, -4) {\usebox{\genericfilt}};
+    \node[vertex, label=below:{$\Leaf_3$},label={[xshift=0.0cm, yshift=-1.5cm]\small$\{1,4\}$}](d3) at (-4.0, -4) {\usebox{\genericfilt}};
+    \node[vertex, label=below:{$\Leaf_4$},label={[xshift=0.0cm, yshift=-1.5cm]\small$\{2,3\}$}](d4) at (-3.25, -4) {\usebox{\genericfilt}};
+    \node[vertex, style={dotted}](d5) at (-2.5, -4) {\usebox{\genericfilt}};
+    \node[vertex, style={dotted}](d6) at (-1.75, -4) {\usebox{\genericfilt}};
+    \node[vertex, style={dotted}](d7) at (-1.0, -4) {\usebox{\genericfilt}};
+    \node[vertex, style={dotted}](d8) at (-0.25, -4) {\usebox{\genericfilt}};
+    \node[vertex, style={dotted}](d9) at (0.5, -4) {\usebox{\genericfilt}};
+    \node[vertex, label=below:{$\Leaf_{10}$},label={[xshift=0.0cm, yshift=-1.5cm]\small$\{1,4\}$}](d10) at (1.25, -4) {\usebox{\genericfilt}};
+    \node[vertex, color=yellow, label=below:{$\Leaf_{11}$},label={[xshift=0.0cm, yshift=-1.5cm]\small$\{4\}$}](d11) at (2.0, -4) {\usebox{\genericfilt}};
+    \node[vertex, color=yellow, label=below:{$\Leaf_{12}$},label={[xshift=0.0cm, yshift=-1.5cm]\small$\{1\}$}](d12) at (2.75, -4) {\usebox{\genericfilt}};
+    \node[vertex, color=yellow, label=below:{$\Leaf_{13}$},label={[xshift=0.0cm, yshift=-1.5cm]\small$\{2\}$}](d13) at (3.5, -4) {\usebox{\genericfilt}};
+    \node[vertex, color=yellow, label=below:{$\Leaf_{14}$},label={[xshift=0.0cm, yshift=-1.5cm]\small$\{3\}$}](d14) at (4.25, -4) {\usebox{\genericfilt}};
+    \node[vertex, label=below:{$\Leaf_{15}$},label={[xshift=0.0cm, yshift=-1.5cm]\small$\{2,3\}$}](d15) at (5.0, -4) {\usebox{\genericfilt}};
+    \node[vertex, style={dotted}](d16) at (5.75, -4) {\usebox{\genericfilt}};
+    
+    % last layer
+    \node[vertex, label=right:{$\ProductNode_3$}](j3) at (-5.125, -3) {\large$\bm\times$};
+    \node[vertex, label=right:{$\ProductNode_4$}](j4) at (-3.615, -3) {\large$\bm\times$};
+    \node[vertex, style={dotted}](j5) at (-2.105, -3) {\large\color{lightgray}{$\bm\times$}};
+    \node[vertex, style={dotted}](j6) at (-0.625, -3) {\large\color{lightgray}{$\bm\times$}};
+    \node[vertex, label=right:{$\ProductNode_7$}](j7) at (0.885, -3) {\large$\bm\times$};
+    \node[vertex, color=yellow, label=right:{$\ProductNode_8$}](j8) at (2.395, -3) {\large$\bm\times$};
+    \node[vertex, color=yellow, label=right:{$\ProductNode_9$}](j9) at (3.905, -3) {\large$\bm\times$};
+    \node[vertex, label=right:{$\ProductNode_{10}$}](j10) at (5.415, -3) {\large$\bm\times$};
+
+    % second last layer
+    \node[vertex, label=right:{$\SumNode_2$}](s2) at (-4.25, -2) {\large$\bm+$};
+    \node[vertex, style={dotted}](s3) at (-1.25, -2) {\large\color{lightgray}{$\bm+$}};
+    \node[vertex, color=yellow, label=right:{$\SumNode_4$}, label=left:{\small$p(X_1,X_4) = $}](s4) at (1.75, -2) {\large$\bm+$};
+    \node[vertex, color=yellow, label=right:{$\SumNode_5$}, label=left:{\small$p(X_2,X_3)=$}](s5) at (4.75, -2) {\large$\bm+$};
+    
+    % second layer
+    \node[vertex, label=right:{$\ProductNode_1$}, label=left:{$p(X_1,\dots,X_4) = $}](j1) at (-2.725, -1) {\large$\bm\times$};
+    \node[vertex, color=yellow, label=right:{$\ProductNode_2$}, label=left:{$p(X_1,X_4)p(X_2,X_3) = $}](j2) at (3.25, -1) {\large$\bm\times$};
+    
+    % Root
+    \node[vertex, color=yellow, label=right:{$\SumNode_1$}, label=left:{$p(X_1,X_2,X_3,X_4) = $}](s1) at (0, 0.5) {\large$\bm+$};
+    
+    % edges
+    \draw [->] (s1) -- (j1);
+    \draw [yellow, ->] (s1) -- (j2);
+    
+    \draw [->] (j1) -- (s2);
+    \draw [-, dotted] (j1) -- (s3);
+    \draw [yellow, ->] (j2) -- (s4);
+    \draw [yellow, ->] (j2) -- (s5);
+
+    \draw [->] (s2) -- (j3);
+    \draw [->] (s2) -- (j4);
+    \draw [-, dotted] (s3) -- (j5);
+    \draw [-, dotted] (s3) -- (j6);
+    \draw [->] (s4) -- (j7);
+    \draw [yellow, ->] (s4) -- (j8);
+    \draw [yellow, ->] (s5) -- (j9);
+    \draw [->] (s5) -- (j10);
+    
+    \draw [->] (j3) -- (d1);
+    \draw [->] (j3) -- (d2);
+    \draw [->] (j4) -- (d3);
+    \draw [->] (j4) -- (d4);
+    \draw [-, dotted] (j5) -- (d5);
+    \draw [-, dotted] (j5) -- (d6);
+    \draw [-, dotted] (j6) -- (d7);
+    \draw [-, dotted] (j6) -- (d8);
+    \draw [-, dotted] (j7) -- (d9);
+    \draw [->] (j7) -- (d10);
+    \draw [yellow, ->] (j8) -- (d11);
+    \draw [yellow, ->] (j8) -- (d12);
+    \draw [yellow, ->] (j9) -- (d13);
+    \draw [yellow, ->] (j9) -- (d14);
+    \draw [->] (j10) -- (d15);
+    \draw [-, dotted] (j10) -- (d16);
+    
+ 	\end{tikzpicture}
+ 	}
+\end{document}

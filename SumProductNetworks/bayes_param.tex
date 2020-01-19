@@ -1,0 +1,40 @@
+
+\begin{frame}{Bayesian Parameter Learning}
+  \begin{itemize}
+    \item The key insight for Bayesian parameter learning [Zhao2016, Vergari2019] is that \emph{sum nodes can be interpreted as latent variables} $\fcolorbox{CBYellow}{background}{Z}_\SumNode$, clustering data instances.
+    \pause
+    \item Consider $\z$ to be a vector containing a state for each $\SumNode$ in the SPN. Then a $\SPT$ is a so-called induced tree [Zhao2016] which is induced by $\z$.
+  \end{itemize}
+  \pause
+  \begin{figure}
+  \centering{
+    \includestandalone[width=0.7\textwidth]{InducedTree}
+    }
+\end{figure}
+\end{frame}
+%
+%\begin{frame}{Bayesian Parameter Learning}
+%  \begin{itemize}
+%    \item It is now conceptually straightforward to extend an SPN to a Bayesian setting.
+%  \end{itemize}
+%  \pause
+%  \begin{figure}%
+%\centering%
+%\begin{tikzpicture}%
+%  \node[obs, fill=lightbackground, draw=white] (x) {$\xnd$};%
+%  \node[foreground, draw=CBYellow, latent, fill=background, left=of x] (z) {$z_{\SumNode,n}$};%
+%  \node[foreground, draw=CBPurple, latent, fill=background, right=of x] (t) {$\theta_{\Leaf,d}$};%
+%  \node[foreground, draw=CBGreen, latent, fill=background, below=of z] (w) {$w_{\SumNode}$};%
+%%
+%  \edge {z,t} {x} ; %%
+%  \edge {w} {z} ; %%
+%%
+%  \plate {zs} {(z)(w)} {$\forall \SumNode \in \SumNodes$} ;%
+%  \plate {t} {(t)} {$\forall \Leaf \in \Leaves$} ;%
+%%
+%  \plate [inner xsep=0.3cm] {xyt} {(x)(t)} {$d\!\in\!1\!:\!D$} ;%
+%  \plate [inner xsep=0.3cm] {xz} {(x)(z)(xyt.north west)} {$n\!\in\!1\!:\!N$} ;%
+%\end{tikzpicture}%
+%\caption{Generative model for Bayesian parameter learning.} \label{fig:BSPN}%
+%\end{figure}%
+%\end{frame}

@@ -1,0 +1,94 @@
+%\newtcolorbox{titlebox}{colback=background,colframe=CBBlue,coltext=gray}
+\newtcolorbox{defbox}{colback=white,colframe=gray,coltext=black}
+
+\newcommand{\Categorical}{\ensuremath{\mathcal{C}at}}
+\newcommand\Beta{\ensuremath{\mathcal{B}eta}}
+\newcommand\Bernoulli{\ensuremath{\mathcal{B}ern}}
+\newcommand{\Dirichlet}{\ensuremath{\mathcal{D}ir}}
+\newcommand{\Normal}{\ensuremath{\mathcal{N}}}
+\newcommand{\Exponential}{\ensuremath{\mathcal{E}xp}}
+\newcommand{\Poisson}{\ensuremath{\mathcal{P}oisson}}
+\newcommand\DP{\ensuremath{\mathrm{DP}}}
+\newcommand\GEM{\ensuremath{\mathrm{GEM}}}
+\newcommand{\indpath}[2]{\mathbin{\mathcal{P}{\left(#1,#2\right)}}} % induced path
+\newcommand{\indic}{\mathbbm{1}}
+\newcommand{\diff}{\mathop{}\!\mathrm{d}}
+\newcommand{\SPT}{\mathcal{T}}
+\newcommand{\SPG}{\mathcal{C}}
+\newcommand{\SPN}{\mathcal{S}}
+\newcommand{\graph}{\mathcal{G}}
+\newcommand{\ProductNode}{\mathsf{P}}
+\newcommand{\ProductNodes}{\bm{\mathsf{P}}}
+\newcommand{\SumNode}{\mathsf{S}}
+\newcommand{\SumNodes}{\bm{\mathsf{S}}}
+\newcommand{\Leaf}{\mathsf{L}}
+\newcommand{\Leaves}{\bm{\mathsf{L}}}
+\newcommand{\Node}{\mathsf{N}}
+\newcommand{\Nodes}{\bm{\mathsf{N}}}
+\newcommand{\Child}{\mathsf{C}}
+\newcommand{\region}{\ensuremath{R}}
+\newcommand{\partition}{\ensuremath{P}}
+\newcommand{\regions}{\ensuremath{\mathbf{R}}}
+\newcommand{\partitions}{\ensuremath{\mathbf{P}}}
+\newcommand{\rg}{\ensuremath{\mathcal{R}}}
+
+\newcommand{\X}{\mathbf{X}}
+\newcommand{\data}{\mathcal{X}}
+%\newcommand{\x}{\mathbf{x}}
+\newcommand{\xn}{\mathbf{x}_{n}}
+\newcommand{\xnd}{x_{n,d}}
+\newcommand{\xd}{\mathbf{x}_{\cdot,d}}
+\newcommand{\Y}{\mathbf{Y}}
+\newcommand{\y}{\mathbf{y}}
+\newcommand{\yd}{\mathbf{y}}
+\newcommand{\ydp}{y_{d,\ProductNode}}
+\newcommand{\yndp}{\mathbf{y_{\not{d},\ProductNode}}}
+\newcommand{\ydP}{y_{d,\partition}}
+\newcommand{\yndP}{\mathbf{y_{\not{d},\partition}}}
+\newcommand{\yProduct}{\mathbf{y}_{\cdot,\ProductNode}}
+\newcommand{\yPartition}{\mathbf{y}_{\cdot,\partition}}
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\z}{\ensuremath{\mathbf{\fcolorbox{CBYellow}{background}{z}}}}
+\newcommand{\zn}{\ensuremath{\mathbf{z}_n}}
+\newcommand{\zs}{\ensuremath{z_\SumNode}}
+\newcommand{\zsn}{\ensuremath{z_{\SumNode,n}}}
+\newcommand{\tld}{\ensuremath{\theta_{d,\Leaf}}}
+
+
+\newcommand{\ks}{\mathbf{k}}
+\newcommand{\Root}{\ensuremath{\mathbf{root}}}
+\newcommand{\ch}{\ensuremath{\mathbf{ch}}}
+\newcommand{\anc}{\ensuremath{\mathbf{anc}}}
+\newcommand{\leaf}[1]{\mathbin{\mathbf{leaf}(#1)}} % leaf function
+\newcommand{\leafs}[1]{\mathbin{\mathbf{leafs}(#1)}} % leaf function
+\newcommand{\w}{w}
+\newcommand{\vp}{\mathbf{v}}
+\newcommand{\vps}{\mathbf{v}}
+%\newcommand{\ws}{\mathbf{w}_{\SumNode}}
+\newcommand{\wsc}{w_{\SumNode,\Child}}
+\newcommand{\tp}{\mathbf{\theta}}
+\newcommand{\val}{\ensuremath{\mathbf{val}}}
+\newcommand{\scope}{\psi}
+\newcommand{\cond}[2]{\mathbin{\left. #1\nonscript\;\middle|\nonscript\; #2 \right.}}
+\newcommand{\cbar}{\,|\,}
+
+\newcommand{\xnew}{\mathbf{x}^{*}}
+
+\newcommand{\argmin}{\arg\!\min} % arg min
+\newcommand{\argmax}{\arg\!\max} % arg max
+
+\DeclareMathOperator*{\f}{\SPN(\xn \,|\, \phi)}
+\DeclareMathOperator*{\fz}{\SPN(\bm \ast \,|\, \phi)}
+\DeclareMathOperator*{\fy}{\SPN(\xn, \lambda_n \,|\, \phi)}
+\DeclareMathOperator*{\fzy}{\SPN(\bm \ast, \lambda_n \,|\, \phi)}
+\newcommand{\wa}{\w^{[0]}_{\gamma}}
+\newcommand{\wb}{\w^{[1]}_{k}}
+\newcommand{\wt}{\w^{(t)}_{k}}
+\newcommand{\wjt}{\w^{(t)}_{j}}
+\newcommand{\wjtt}{\w^{(t+1)}_{j}}
+\newcommand{\wtt}{\w^{(t+1)}_{k}}
+\newcommand{\wat}{\w^{[0](t)}_{\gamma}}
+\newcommand{\wbt}{\w^{[1](t)}_{k}}
+\newcommand{\wjbt}{\w^{[1](t)}_{j}}
+\newcommand{\watt}{\w^{[0](t+1)}_{\gamma}}
+\newcommand{\wbtt}{\w^{[1](t+1)}_{k}}
