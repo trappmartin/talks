@@ -11,12 +11,12 @@
 
 \begin{frame}{What is a Sum-Product Network?}
 \begin{itemize}
-  \item Let $\X = \{X_1, \dots, X_D\}$ be set of $D$ random variables. 
+  \item Let $\X = \{X_1, \dots, X_D\}$ be set of $D$ random variables.
   \item An SPN is a distribution over $\X$ defined as a 4-tuple $\SPN = (\graph, \scope, \w, \tp)$.
   \begin{itemize}
     \item $\graph$ is a computational graph.
     \item $\scope$ is a so-called scope function.
-    \item $\w$ denotes the set of sum-weights and $\tp$ the set of leaf node parameters. 
+    \item $\w$ denotes the set of sum-weights and $\tp$ the set of leaf node parameters.
   \end{itemize}
 \end{itemize}
  \small This definition\footnote{\scriptsize M. Trapp et al.: Bayesian Learning of Sum-Product Networks. In NeurIPS, 2019.} is conceptually different to the original definitions as it disentangles the computational graph and the scope function.
@@ -33,7 +33,7 @@
 
 \begin{frame}{Leaves $\Leaf$ in $\graph$}
  Leaf nodes are input nodes with arbitrary distribution, e.g.~Gaussian, Multinomial, variational autoencoder.\\[1em]
- 
+
 \tikzstyle{vertex}=[inner sep=0.01cm, circle, draw]
 \begin{columns}
 \begin{column}{.2\linewidth}
@@ -62,7 +62,7 @@ $\Leaf(x) = p(x \cbar \tp_\Leaf)$
 
 \begin{frame}{Product Nodes $\ProductNode$ in $\graph$}
 Product nodes encode independence assumptions between sets of random variables.\\[1em]
- 
+
  \tikzstyle{vertex}=[inner sep=0.01cm, circle, draw]
 \begin{columns}
 \begin{column}{.2\linewidth}
@@ -94,7 +94,7 @@ $\ProductNode(x)  = \prod\limits_{\Child \in \ch(\ProductNode)} \Child(x)$
 \end{frame}
 
 \begin{frame}{Sum Nodes $\SumNode$ in $\graph$}
-Sum nodes\footnote{\scriptsize We assume that $\w_{\SumNode, \Child} \geq 0$ .} replace independence with conditional independence within the network.\\[1em]
+Sum nodes\footnote{\scriptsize We assume that $\w_{\SumNode, \Child} \geq 0$.} replace independence with conditional independence within the network.\\[1em]
 
 \tikzstyle{vertex}=[inner sep=0.01cm, circle, draw]
 \begin{columns}
@@ -127,12 +127,12 @@ $\SumNode(x)  = \sum\limits_{\Child \in \ch(\ProductNode)}  \w_{\SumNode, \Child
 \end{frame}
 
 \begin{frame}{Scope Function $\scope$}
-$\scope$ is a function assigning each node $\Node$ in a sub-set of $\X$,\footnote{\scriptsize This sub-set is often referred to as the scope of a node.} and has to fulfil the following properties: 
+$\scope$ is a function assigning each node $\Node$ in a sub-set of $\X$,\footnote{\scriptsize This sub-set is often referred to as the scope of a node.} and has to fulfil the following properties:
 \begin{defbox}
 \begin{enumerate}
 \item If $\Node$ is the root node, then $\scope(\Node) = \X$.
 \item If $\Node$ is a sum or product, then $\scope(\Node) = \bigcup_{\Node' \in \ch(\Node)} \scope(\Node')$.
-\item For each $\SumNode \in \SumNodes$ we have $\forall \Node, \Node' \in \ch(\SumNode)\colon \scope(\Node) = \scope(\Node')$ (\emph{completeness}) \footnote{\scriptsize Complete and decomposable SPNs are referred to as valid SPNs.}.
+\item For each $\SumNode \in \SumNodes$ we have $\forall \Node, \Node' \in \ch(\SumNode)\colon \scope(\Node) = \scope(\Node')$ (\emph{completeness})\footnote{\scriptsize Complete and decomposable SPNs are referred to as valid SPNs.}.
 \item For each $\ProductNode \in \ProductNodes$ we have $\forall \Node, \Node' \in \ch(\ProductNode)\colon \scope(\Node) \cap \scope(\Node') = \emptyset$ (\emph{decomposability}).
 \end{enumerate}
 \end{defbox}
