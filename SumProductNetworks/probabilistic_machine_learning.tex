@@ -2,9 +2,37 @@
 
 \frame{
 \begin{itemize}
-  \item<1->Sum-product networks (SPNs) [Poon2011] are general-purpose probabilistic machine learning models that admit tractable exact probabilistic inference.
-  \item<2->What are \emph{tractable probabilistic models}?
-  \item<3->A class of queries $Q$ on a class of models $M$ is tractable, iff for any query $q \in Q$ and model $m \in M$ the computational complexity is at most polynomial.
-  \item<4->SPNs admit many probabilistic inference tasks, such as marginalisation, in linear time in their representation size.
-  \end{itemize}
+    \item Machine learning: How can we make machines that learn from data?
+    \item Probabilistic machine learning: How can we make machines that learn from data using tools from probability theory?
+    \item Uncertainty is key to probabilistic machine learning and is expressed in all forms, e.g.~noise in the data, uncertainty over the predictions, uncertainty over the model.
+\end{itemize}
+}
+
+\frame{
+Example: How likely is a traffic jam on highway $X_1$ today?
+
+\begin{itemize}
+    \item today = Thursday = $Y = 4$.
+    \item Traffic jam model: $\theta$ for all $\{X_i\}_{i=1}^n$ highways in the country.
+    \item $p(X_1 = 1, Y = 4 \,|\, \theta) = \int_{X_2} \int_{X_3} \dots \int_{X_n} p(X_1 = 1, Y = 4, X_2 = x_2, X_3 = x_3, \dots, X_n = x_n \, | \, \theta)$
+    \item \textbf{We need to be able to marginalise out $X_2, \dots, X_n$ to answer the query.}
+\end{itemize}
+}
+
+\frame{
+    \textbf{Problem:} Probabilistic inference task, such as marginalisation, are often intractable for interesting models.
+
+\begin{table}
+\centering
+\begin{tabular}{lllll}
+             & GANs & VAEs & Flows & SPNs  \\
+Sampling     & Y    & Y    & Y     & Y      \\
+Density      & N    & N/Y  & Y     & Y      \\
+Marginals    & N    & N    & ?     & Y      \\
+Conditionals & N    & N    & ?     & Y      \\
+Moments      & N    & N    & ?     & Y      \\
+MAP          & N    & N    & ?     & N/Y
+\end{tabular}
+\caption{Robert Peharz, Sum-Product Networks and Deep Learning: A Love Marriage. Talk at ICML, 2019.}
+\end{table}
 }

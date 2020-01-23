@@ -9,6 +9,22 @@
   \end{itemize}
 }
 
+\frame{
+\begin{table}
+\centering
+\begin{tabular}{lllll}
+             & GANs & VAEs & Flows & SPNs  \\
+Sampling     & Y    & Y    & Y     & Y      \\
+Density      & N    & N/Y  & Y     & Y      \\
+Marginals    & N    & N    & ?     & Y      \\
+Conditionals & N    & N    & ?     & Y      \\
+Moments      & N    & N    & ?     & Y      \\
+MAP          & N    & N    & ?     & N/Y
+\end{tabular}
+\caption{Robert Peharz, Sum-Product Networks and Deep Learning: A Love Marriage. Talk at ICML, 2019.}
+\end{table}
+}
+
 \begin{frame}{What is a Sum-Product Network?}
 \begin{itemize}
   \item Let $\X = \{X_1, \dots, X_D\}$ be set of $D$ random variables.
