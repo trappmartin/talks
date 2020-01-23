@@ -1,15 +1,15 @@
 \section{Sum-Product Networks}
 
-\frame{
+\begin{frame}{Sum-Product Networks}
 \begin{itemize}
   \item Sum-product networks (SPNs)\footnote{\scriptsize H. Poon \& P. Domingos: Sum-product networks: A new deep architecture. In UAI, 2011.} is a class of general-purpose probabilistic machine learning models that admit tractable probabilistic inference.
   \item SPNs are a sub-class of so-called tractable probabilistic models or probabilistic circuits.
    \item A class of queries $Q$ on a class of models $M$ is tractable, iff for any query $q \in Q$ and model $m \in M$ the computational complexity is at most polynomial.
   \item SPNs admit many probabilistic inference tasks, such as marginalisation, in linear time in their representation size.
   \end{itemize}
-}
+\end{frame}
 
-\frame{
+\begin{frame}{Probabilistic Inference}
 \begin{table}
 \centering
 \begin{tabular}{lllll}
@@ -21,9 +21,9 @@ Conditionals & N    & N    & ?     & Y      \\
 Moments      & N    & N    & ?     & Y      \\
 MAP          & N    & N    & ?     & N/Y
 \end{tabular}
-\caption{Robert Peharz, Sum-Product Networks and Deep Learning: A Love Marriage. Talk at ICML, 2019.}
+\caption{\scriptsize Robert Peharz, Sum-Product Networks and Deep Learning: A Love Marriage. Talk at ICML, 2019.}
 \end{table}
-}
+\end{frame}
 
 \begin{frame}{What is a Sum-Product Network?}
 \begin{itemize}
