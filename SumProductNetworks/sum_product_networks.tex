@@ -2,11 +2,10 @@
 
 \begin{frame}{Sum-Product Networks}
 \begin{itemize}
-  \item Sum-product networks (SPNs)\footnote{\scriptsize H. Poon \& P. Domingos: Sum-product networks: A new deep architecture. In UAI, 2011.} is a class of general-purpose probabilistic machine learning models that admit tractable probabilistic inference.
-  \item SPNs are a sub-class of so-called tractable probabilistic models or probabilistic circuits.
-   \item A class of queries $Q$ on a class of models $M$ is tractable, iff for any query $q \in Q$ and model $m \in M$ the computational complexity is at most polynomial.
-  \item SPNs admit many probabilistic inference tasks, such as marginalisation, in linear time in their representation size.
-  \end{itemize}
+    \item Sum-product networks (SPNs)\footnote{\scriptsize H. Poon \& P. Domingos: Sum-product networks: A new deep architecture. In UAI, 2011.} are a sub-class of so-called tractable probabilistic models or probabilistic circuits\footnote{\scriptsize Van den Broeck et al.: Tractable probabilistic models: Representations, algorithms, learning and applications. Tutorial at UAI, 2019.}, that admit tractable probabilistic inference.
+    \item A class of queries $Q$ on a class of models $M$ is tractable, iff for any query $q \in Q$ and model $m \in M$ the computational complexity is at most polynomial.
+    \item SPNs admit many probabilistic inference tasks, such as marginalisation, in linear time in their representation size.
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Probabilistic Inference}
@@ -28,14 +27,14 @@ MAP          & N    & N    & ?     & N/Y
 \begin{frame}{What is a Sum-Product Network?}
 \begin{itemize}
   \item Let $\X = \{X_1, \dots, X_D\}$ be set of $D$ random variables.
-  \item An SPN is a distribution over $\X$ defined as a 4-tuple $\SPN = (\graph, \scope, \w, \tp)$.
+  \item A Probabilistic Circuit (PC) is a tuple $\SPN = (\graph, \scope, \tp)$, where
   \begin{itemize}
     \item $\graph$ is a computational graph.
     \item $\scope$ is a so-called scope function.
-    \item $\w$ denotes the set of sum-weights and $\tp$ the set of leaf node parameters.
+    \item $\w$ denotes the set of parameters, e.g. sum-weights and leaf node parameters.
   \end{itemize}
+  \item A Sum-Product Network (SPN) is a \emph{smooth} and \emph{decomposable} PC.
 \end{itemize}
- \small This definition\footnote{\scriptsize M. Trapp et al.: Bayesian Learning of Sum-Product Networks. In NeurIPS, 2019.} is conceptually different to the original definitions as it disentangles the computational graph and the scope function.
 \end{frame}
 
 \begin{frame}{Computational Graph $\graph$}
@@ -48,7 +47,7 @@ MAP          & N    & N    & ?     & N/Y
 \end{frame}
 
 \begin{frame}{Leaves $\Leaf$ in $\graph$}
- Leaf nodes are input nodes with arbitrary distribution, e.g.~Gaussian, Multinomial, variational autoencoder.\\[1em]
+    Leaf/input nodes are arbitrary (tractable) distributions, e.g.~Gaussian, Multinomial, variational autoencoder.\\[1em]
 
 \tikzstyle{vertex}=[inner sep=0.01cm, circle, draw]
 \begin{columns}
@@ -110,7 +109,7 @@ $\ProductNode(x)  = \prod\limits_{\Child \in \ch(\ProductNode)} \Child(x)$
 \end{frame}
 
 \begin{frame}{Sum Nodes $\SumNode$ in $\graph$}
-Sum nodes\footnote{\scriptsize We assume that $\w_{\SumNode, \Child} \geq 0$.} replace independence with conditional independence within the network.\\[1em]
+    Sum nodes\footnote{\scriptsize $\sum_{\Child \in \ch(\SumNode)} w_{\SumNode,\Child} = 1$ and $\w_{\SumNode, \Child} \geq 0$.} replace independence with conditional independence within the network.\\[1em]
 
 \tikzstyle{vertex}=[inner sep=0.01cm, circle, draw]
 \begin{columns}
@@ -148,7 +147,7 @@ $\scope$ is a function assigning each node $\Node$ in a sub-set of $\X$,\footnot
 \begin{enumerate}
 \item If $\Node$ is the root node, then $\scope(\Node) = \X$.
 \item If $\Node$ is a sum or product, then $\scope(\Node) = \bigcup_{\Node' \in \ch(\Node)} \scope(\Node')$.
-\item For each $\SumNode \in \SumNodes$ we have $\forall \Node, \Node' \in \ch(\SumNode)\colon \scope(\Node) = \scope(\Node')$ (\emph{completeness})\footnote{\scriptsize Complete and decomposable SPNs are referred to as valid SPNs.}.
+\item For each $\SumNode \in \SumNodes$ we have $\forall \Node, \Node' \in \ch(\SumNode)\colon \scope(\Node) = \scope(\Node')$ (\emph{smoothness})
 \item For each $\ProductNode \in \ProductNodes$ we have $\forall \Node, \Node' \in \ch(\ProductNode)\colon \scope(\Node) \cap \scope(\Node') = \emptyset$ (\emph{decomposability}).
 \end{enumerate}
 \end{defbox}
