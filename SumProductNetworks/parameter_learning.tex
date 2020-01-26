@@ -1,33 +1,44 @@
 \section{Parameter Learning}
 
 \begin{frame}{Parameter Learning in SPNs}{}
-\begin{columns}
-\begin{column}{\linewidth}
-\begin{block}{Generative Learning\footnote{\scriptsize H. Poon \& P. Domingos: Sum-product networks: A new deep architecture. In UAI, 2011.}}
-\begin{equation}
-  \mathcal{L}(\theta \,| \, \mathcal{X}) = \sum_{n=1}^N \log \f - \log \fz\, , \; \; \xn \in \mathbb{R}^D
-\end{equation}
-\end{block}
-Note that $\fz$ is the partition function which can be evaluated efficiently using a single upward pass.
-%\hline
-\begin{block}{Discriminative Learning\footnote{\scriptsize R. Gens \& P. Domingos: Discriminative learning of sum-product networks. In NeurIPS, 2012.}}
-\begin{equation}
-  \begin{aligned}
-    \mathcal{L}(\theta, \lambda \,| \, \mathcal{X}) = \sum_{n=1}^N &\log \fy - \log \f\, , \; \; \xn \in \mathbb{R}^D, \, \lambda_n \in \mathbb{R}
-\end{aligned}
-\end{equation}
-\end{block}
-\end{column}
-\end{columns}
+SPNs are differentiable multi-linear NNs with non-linear inputs, thus common parameter learning for NNs can be applied.
+
+Approaches that go beyond NN techniques:
+\begin{itemize}
+    \item Expectation Maximisation {\scriptsize [R. Peharz et al.: On the latent variable interpretation of sum-product networks. TPAMI, 2017.]}
+    \item Variational Inference {\scriptsize [H. Zhao et al.: Collapsed variational inference for sum-product networks. In ICML, 2016.]}
+    \item Bayesian moment matching {\scriptsize [A. Rashwan et al.: Online and distributed Bayesian moment matching for parameter learning in sum-product networks. In AISTATS, 2016.]}
+    \item \textbf{Safe Semi-Supervised Learning} {\scriptsize [M. Trapp et al.: Safe semi-supervised learning of sum-product networks. In UAI, 2017.]}
+\end{itemize}
+
+%\begin{columns}
+%\begin{column}{\linewidth}
+%\begin{block}{Generative Learning\footnote{\scriptsize H. Poon \& P. Domingos: Sum-product networks: A new deep architecture. In UAI, 2011.}}
+%\begin{equation}
+%  \mathcal{L}(\theta \,| \, \mathcal{X}) = \sum_{n=1}^N \log \f - \log \fz\, , \; \; \xn \in \mathbb{R}^D
+%\end{equation}
+%\end{block}
+%Note that $\fz$ is the partition function which can be evaluated efficiently using a single upward pass.
+%%\hline
+%\begin{block}{Discriminative Learning\footnote{\scriptsize R. Gens \& P. Domingos: Discriminative learning of sum-product networks. In NeurIPS, 2012.}}
+%\begin{equation}
+%  \begin{aligned}
+%    \mathcal{L}(\theta, \lambda \,| \, \mathcal{X}) = \sum_{n=1}^N &\log \fy - \log \f\, , \; \; \xn \in \mathbb{R}^D, \, \lambda_n \in \mathbb{R}
+%\end{aligned}
+%\end{equation}
+%\end{block}
+%\end{column}
+%\end{columns}
 \end{frame}
 
-\begin{frame}{Semi-Supervised Learning}{}
-\begin{block}{Contrastive Pessimistic Likelihood Estimation (CPLE)\footnote{\scriptsize M. Trapp et al.: Safe semi-supervised learning of sum-product networks. In UAI, 2017.}}
+\begin{frame}{Safe Semi-Supervised Learning}{}
+    \begin{block}{Contrastive Pessimistic Likelihood Estimation (CPLE)}
 \begin{itemize}
     \item Assume $\mathcal{X} = \{\bm x_n, \lambda_n\}_{n=1}^N$, $\lambda_n \in \mathcal{R}^K$ to be a small set of labelled data points and $\mathcal{U} = \{\bm u_m\}_{m=1}^M$ a set of unlabelled data points.
     \item $\theta^+$ is an SPN trained solely on $\mathcal{X}$
     \item We propose soft labels $\bm q_m \in \Delta_{K-1}$ for all unlabelled data points, e.g.~randomly.
     \item We initialise the semi-supervised SPN $\theta$ randomly, then:
+    \pause
     \begin{enumerate}
         \item Update all soft labels so that the performance of $\theta^+$ on all data points is better than $\theta$.
         \item Update $\theta$ so that the performance of $\theta$ on all data points is better than $\theta^+$.
@@ -54,13 +65,25 @@ Note that $\fz$ is the partition function which can be evaluated efficiently usi
 \begin{frame}{Over-parametrization in SPNs\footnote{\scriptsize M. Trapp et al.: Optimisation of Overparametrized Sum-Product Networks. ICML Workshop on Tractable Probabilistic Models, 2019.}}{}
 \begin{columns}
 \begin{column}{\linewidth}
+\onslide<1->{
+
+  \begin{columns}
+  \begin{column}{0.5\linewidth}
+    \includegraphics[width=\textwidth]{shallowSPN}
+  \end{column}
+  \begin{column}{0.5\linewidth}
+    \includegraphics[width=\textwidth]{deepSPN}
+  \end{column}
+  \end{columns}
+}
+\onslide<2->{
 \begin{align}
-    \wt &\approx \wt + \rho^{(t)} \nabla_{\wt} + \left[ \sum_{l=0}^{L-1} \eta \nabla_{w^{[l]}_{\phi(k, l)}} (w^{[l]}_{\phi(k, l)})^{-1} \right] \wt \\
-  &= \wt + {\color{cyan} \rho^{(t)}} \nabla_{\wt} + {\color{blue}\sum_{\tau=1}^{t-1} \mu^{(t,\tau)} \nabla_{w^{(\tau)}_k}}
+    \wt &\approx \wt + {\color{cyan} \rho^{(t)}} \nabla_{\wt} + {\color{blue}\sum_{\tau=1}^{t-1} \mu^{(t,\tau)} \nabla_{w^{(\tau)}_k}}
 \end{align}\\
-  \begin{tcolorbox}[lower separated=false]
-  \small{Gradient-based optimisation in deep tree-structured sum-product network with small (fixed) learning rate and near zero initialisation of the weights is equivalent to gradient-based optimisation with adaptive and time-varying {\color{cyan} learning rate} and {\color{blue} momentum term}.}
- \end{tcolorbox}
+%  \begin{tcolorbox}[lower separated=false]
+%  \small{Gradient-based optimisation in deep tree-structured sum-product network with small (fixed) learning rate and near zero initialisation of the weights is equivalent to gradient-based optimisation with adaptive and time-varying {\color{cyan} learning rate} and {\color{blue} momentum term}.}
+% \end{tcolorbox}
+}
 \end{column}
 \end{columns}
 \end{frame}

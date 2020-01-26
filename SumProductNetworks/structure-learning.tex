@@ -5,17 +5,27 @@
     \item The structure has to be smooth and decomposable, i.e.,~a sparsely connected graph.
     \item Structure learning has to be efficient.
     \item How to learn structures that generalise well, many approaches learn deep trees that are prune to overfitting.
-    \item What is a good SPN structure? or What is a good principle to derive an SPN structure?\footnote{\scriptsize M. Trapp et al.: Bayesian learning of sum-product networks. In NeurIPS, 2019.\label{fn:bspn}}
+    \item What is a good SPN structure? or What is a good principle to derive an SPN structure?
 \end{itemize}
 \end{frame}
 
-
+\iffalse
 \begin{frame}{General-Purpose Learners (Selection)}{}
 \begin{itemize}
     \item LearnSPN\footnote{\scriptsize R. Gens \& P. Domingos: Learning the structure of sum-product networks. In ICML, 2013.} recursively constructs a tree structure.
     \item ID-SPN\footnote{\scriptsize A. Rooshenas \& D. Lowd: Learning Sum-Product Networks with Direct and Indirect Variable Interactions. In ICML, 2014.} is a generalisation of LearnSPN with tractable Markov networks as leaves.
     \item \textbf{RAT-SPN}\footnote{\scriptsize R. Peharz et al.: Random sum-product networks: A simple but effective approach to probabilistic deep learning. In UAI, 2019.} constructs large SPNs with random decompositions.
     \item \textbf{BSPN}\footnotemark[8] a well-principled framework to learn structures using Bayesian inference.
+\end{itemize}
+\end{frame}
+\fi
+
+\begin{frame}{General-Purpose Learners (Selection)}{}
+\begin{itemize}
+    \item LearnSPN {\scriptsize [R. Gens \& P. Domingos: Learning the structure of sum-product networks. In ICML, 2013.]}
+    \item ID-SPN {\scriptsize [A. Rooshenas \& D. Lowd: Learning Sum-Product Networks with Direct and Indirect Variable Interactions. In ICML, 2014.]}
+    \item \textbf{RAT-SPN} {\scriptsize [R. Peharz et al.: Random sum-product networks: A simple but effective approach to probabilistic deep learning. In UAI, 2019.]}
+    \item \textbf{Bayesian SPN} {\scriptsize [M. Trapp et al.: Bayesian learning of sum-product networks. In NeurIPS, 2019.]}
 \end{itemize}
 \end{frame}
 
@@ -41,8 +51,7 @@
 %\end{frame}
 
 \begin{frame}{Bayesian Structure}
-    \begin{block}{Why care about Bayesian structure learning?}
-
+\begin{block}{Why care about Bayesian structure learning?}
 \begin{itemize}
         \item Competitive results.
         \item Occam's razor effect prevents overfitting.
@@ -86,7 +95,7 @@
 \end{frame}
 
 \begin{frame}{Bayesian Structure}
-Posterior inference can be performed using ancestral within Gibbs sampling.
+Posterior inference can be performed using ancestral sampling within Gibbs sampling.
 
 \begin{figure}
     \centering
@@ -113,6 +122,15 @@ Posterior inference can be performed using ancestral within Gibbs sampling.
 \end{figure}
 \end{frame}
 
+\tikzset{
+    invisible/.style={opacity=0},
+    visible on/.style={alt={#1{}{invisible}}},
+    alt/.code args={<#1>#2#3}{%
+      \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}} % \pgfkeysalso doesn't change the path
+    },
+  }
+
+
 \begin{frame}{Bayesian Structure - Missing Values Experiment}
 Performance under increasing amount of missing values (missing completely at random).
 \begin{center}
@@ -133,7 +151,7 @@ Performance under increasing amount of missing values (missing completely at ran
     grid style=dashed
 ]
 
-\addplot [color=black, dashed, mark=*, mark options={solid}] coordinates {
+\addplot [color=black, dashed, mark=*, mark options={solid},visible on=<1->] coordinates {
     (20, -53.551654150378006)%
     (40, -54.421205612626615)%
     (60, -55.51437111821264)%
@@ -141,15 +159,15 @@ Performance under increasing amount of missing values (missing completely at ran
     };%
 \addlegendentry{LearnSPN}
 %
-\addplot [color=black, dashed, mark=square*, mark options={solid}] coordinates {
+\addplot [color=black, dashed, mark=square*, mark options={solid},visible on=<3->] coordinates {
     (20, -52.9306308300396)%
     (40, -53.669159658525054)%
     (60, -53.804286870223166)%
     (80, -55.06448194755978)%
     };%
 \addlegendentry{LearnSPN$^\star$}%
-%
-\addplot [color=violet, dotted, mark=*, mark options={solid}] coordinates {
+
+\addplot [color=violet, dotted, mark=*, mark options={solid},visible on=<2->] coordinates {
     (20, -52.332443930626056)%
     (40, -52.24919890693739)%
     (60, -53.824333727580374)%
@@ -157,7 +175,7 @@ Performance under increasing amount of missing values (missing completely at ran
     };%
 \addlegendentry{ID-SPN}
 %
-\addplot [color=violet, dotted, mark=square*, mark options={solid}] coordinates {
+\addplot [color=violet, dotted, mark=square*, mark options={solid},visible on=<4->] coordinates {
     (20, -51.71630289170897)%
     (40, -52.4355408358714)%
     (60, -52.30368237732657)%
@@ -165,7 +183,7 @@ Performance under increasing amount of missing values (missing completely at ran
     };%
 \addlegendentry{ID-SPN$^\star$}
 
-\addplot [color=blue, solid, mark=*, mark options={solid}] coordinates {
+\addplot [color=blue, solid, mark=*, mark options={solid}, visible on=<5->] coordinates {
     (20, -51.784)%
     (40, -51.997)%
     (60, -52.415)%
