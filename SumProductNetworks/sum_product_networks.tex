@@ -26,28 +26,19 @@ MAP          & N    & N    & ?     & N/Y
 
 \begin{frame}{What is a Sum-Product Network?}
 \begin{itemize}
-  \item Let $\X = \{X_1, \dots, X_D\}$ be set of $D$ random variables.
-  \item A Probabilistic Circuit (PC) is a tuple $\SPN = (\graph, \scope, \tp)$, where
+    \item Let $\X = \{X_1, \dots, X_D\}$ be set of random variables.
+  \item A Probabilistic Circuit (PC) over $\X$ is a tuple $\SPN = (\graph, \scope, \tp)$, where
   \begin{itemize}
     \item $\graph$ is a computational graph.
-    \item $\scope$ is a so-called scope function.
-    \item $\w$ denotes the set of parameters, e.g. sum-weights and leaf node parameters.
+    \item $\scope$ is a scope function.
+    \item $\tp$ is a set of parameters, e.g.~sum-weights and leaf node parameters.
   \end{itemize}
   \item A Sum-Product Network (SPN) is a \emph{smooth} and \emph{decomposable} PC.
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Computational Graph $\graph$}
- $\graph$ is a rooted connected directed acyclic graph (DAG), containing: sum ($\SumNode$), product ($\ProductNode$) and leaf nodes ($\Leaf$).
-
-\begin{figure}
-  \includegraphics[width=\textwidth]{computation_graph}
-  \caption{Example of a tree-shaped computational graph.}
-\end{figure}
-\end{frame}
-
 \begin{frame}{Leaves $\Leaf$ in $\graph$}
-    Leaf/input nodes are arbitrary (tractable) distributions, e.g.~Gaussian, Multinomial, variational autoencoder.\\[1em]
+Leaf/input nodes are arbitrary (tractable) distributions, e.g.~Gaussian, Multinomial, variational autoencoder.\\[1em]
 
 \tikzstyle{vertex}=[inner sep=0.01cm, circle, draw]
 \begin{columns}
@@ -141,12 +132,25 @@ $\SumNode(x)  = \sum\limits_{\Child \in \ch(\ProductNode)}  \w_{\SumNode, \Child
 \end{figure}
 \end{frame}
 
+\begin{frame}{Computational Graph $\graph$}
+ $\graph$ is a rooted connected directed acyclic graph (DAG), containing: sum ($\SumNode$), product ($\ProductNode$) and leaf nodes ($\Leaf$).
+\begin{figure}
+  \includegraphics[width=\textwidth]{computation_graph}
+  \caption{Example of a tree-shaped computational graph.}
+\end{figure}
+\end{frame}
+
 \begin{frame}{Scope Function $\scope$}
-$\scope$ is a function assigning each node $\Node$ in a sub-set of $\X$,\footnote{\scriptsize This sub-set is often referred to as the scope of a node.} and has to fulfil the following properties:
+The scope function assigning each node $\Node$ in a sub-set of $\X$,\footnote{\scriptsize This sub-set is often referred to as the scope of a node.} and has to fulfil the following properties:
 \begin{defbox}
 \begin{enumerate}
 \item If $\Node$ is the root node, then $\scope(\Node) = \X$.
 \item If $\Node$ is a sum or product, then $\scope(\Node) = \bigcup_{\Node' \in \ch(\Node)} \scope(\Node')$.
+\end{enumerate}
+\end{defbox}
+In case of SPNs we also assume that:
+\begin{defbox}
+\begin{enumerate}
 \item For each $\SumNode \in \SumNodes$ we have $\forall \Node, \Node' \in \ch(\SumNode)\colon \scope(\Node) = \scope(\Node')$ (\emph{smoothness})
 \item For each $\ProductNode \in \ProductNodes$ we have $\forall \Node, \Node' \in \ch(\ProductNode)\colon \scope(\Node) \cap \scope(\Node') = \emptyset$ (\emph{decomposability}).
 \end{enumerate}
@@ -154,13 +158,12 @@ $\scope$ is a function assigning each node $\Node$ in a sub-set of $\X$,\footnot
 \end{frame}
 
 \frame{
-\begin{center}Example SPN $\SPN = (\graph, \scope, \w, \tp)$\end{center}
+\begin{center}Example SPN $\SPN = (\graph, \scope, \tp)$\end{center}
 \begin{figure}
   \centering{
     \includestandalone[width=0.9\textwidth]{SPN}
     }
 \end{figure}
-After applying a scope function $\scope$  on $\graph$ we obtain the SPN. Most structure learners learn both in an entangled way.
 
 \small Note that we define $\Leaf(x):=1$ for every $x$ if and only if $\scope(\Leaf) = \emptyset$.
 }

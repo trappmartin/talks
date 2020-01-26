@@ -21,21 +21,37 @@ Note that $\fz$ is the partition function which can be evaluated efficiently usi
 \end{columns}
 \end{frame}
 
-\begin{frame}{Parameter Learning in SPNs}{}
-\begin{block}{Semi-Supervised Learning using Contrastive Pessimistic Likelihood Estimation (CPLE)\footnote{\scriptsize M. Trapp et al.: Safe semi-supervised learning of sum-product networks. In UAI, 2017.}}
-\begin{equation}
-  \text{CPLE} = \argmax_{\theta \in \Theta} \argmin_{\bm q \in \Delta_{K-1}^M} \mathcal{L}(\theta,  \lambda, \bm{q} \,| \, \mathcal{X}, \mathcal{U}) - \mathcal{L}(\theta^+, \lambda, \bm{q} \,| \, \mathcal{X}, \mathcal{U})
-\end{equation}
-\end{block}
+\begin{frame}{Semi-Supervised Learning}{}
+\begin{block}{Contrastive Pessimistic Likelihood Estimation (CPLE)\footnote{\scriptsize M. Trapp et al.: Safe semi-supervised learning of sum-product networks. In UAI, 2017.}}
+\begin{itemize}
+    \item Assume $\mathcal{X} = \{\bm x_n, \lambda_n\}_{n=1}^N$, $\lambda_n \in \mathcal{R}^K$ to be a small set of labelled data points and $\mathcal{U} = \{\bm u_m\}_{m=1}^M$ a set of unlabelled data points.
+    \item $\theta^+$ is an SPN trained solely on $\mathcal{X}$
+    \item We propose soft labels $\bm q_m \in \Delta_{K-1}$ for all unlabelled data points, e.g.~randomly.
+    \item We initialise the semi-supervised SPN $\theta$ randomly, then:
+    \begin{enumerate}
+        \item Update all soft labels so that the performance of $\theta^+$ on all data points is better than $\theta$.
+        \item Update $\theta$ so that the performance of $\theta$ on all data points is better than $\theta^+$.
+        \item If not converged, move to step 1.
+    \end{enumerate}
+\end{itemize}
 
+\end{block}
+\end{frame}
+
+%\begin{equation}
+%  \text{CPLE} = \argmax_{\theta \in \Theta} \argmin_{\bm q \in \Delta_{K-1}^M} \mathcal{L}(\theta,  \lambda, \bm{q} \,| \, \mathcal{X}, \mathcal{U}) - \mathcal{L}(\theta^+, \lambda, \bm{q} \,| \, \mathcal{X}, \mathcal{U})
+%\end{equation}
+
+\begin{frame}{Semi-Supervised Learning}{}
 \begin{figure}
-  \includegraphics[width=.4\textwidth]{semisupervised_2_2}~
-   \includegraphics[width=.4\textwidth]{semisupervised_20_2}
+    \includegraphics[width=.47\textwidth]{semisupervised_2_2}~
+    \includegraphics[width=.47\textwidth]{semisupervised_20_2}
+    \caption{Decision boundary of a semi-supervised SPN at iteration 1 (left) and after convergence (right).}
 \end{figure}
 
 \end{frame}
 
-\begin{frame}{Overparameterization in SPNs\footnote{\scriptsize M. Trapp et al.: Optimisation of Overparametrized Sum-Product Networks. ICML Workshop on Tractable Probabilistic Models, 2019.}}{}
+\begin{frame}{Over-parametrization in SPNs\footnote{\scriptsize M. Trapp et al.: Optimisation of Overparametrized Sum-Product Networks. ICML Workshop on Tractable Probabilistic Models, 2019.}}{}
 \begin{columns}
 \begin{column}{\linewidth}
 \begin{align}
@@ -49,15 +65,13 @@ Note that $\fz$ is the partition function which can be evaluated efficiently usi
 \end{columns}
 \end{frame}
 
-\iffalse
-\begin{frame}{Overparameterization in SPNs \small{[Trapp 2019]}}{}
+\begin{frame}{Over-parametrization Experiment}
 \begin{columns}
 \begin{column}{\linewidth}
 \includegraphics[width=\textwidth]{nltcs_experiment}
 \end{column}
 \end{columns}
 \end{frame}
-\fi
 
 \iffalse
 \begin{frame}{Bayesian Parameter Learning}

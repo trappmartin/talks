@@ -1,26 +1,24 @@
 \section{Probabilistic Machine Learning}
 
 \begin{frame}{Introduction}
-\begin{itemize}
-    \item Machine learning: How can we make machines that learn from data?
-    \item Probabilistic machine learning: How can we make machines that learn from data using tools from probability theory?
-    \item Uncertainty is key to probabilistic machine learning and is expressed in all forms, e.g.~noise in the data, uncertainty over the predictions, uncertainty over the model.
-\end{itemize}
+Probabilistic machine learning: How can we make machines that learn from data using tools from probability theory?
+
+Uncertainty is key to probabilistic machine learning and is expressed in all forms, e.g.~noise in the data, uncertainty over the predictions, uncertainty over the model.
 \end{frame}
 
-\begin{frame}{Example}
-Example: How likely is a traffic jam on highway $X_1$ today?
+%\begin{frame}{Example}
+%Example: How likely is a traffic jam on highway $X_1$ today?
 
-\begin{itemize}
-    \item today = Thursday = $Y = 4$.
-    \item Traffic jam model: $\theta$ for all $\{X_i\}_{i=1}^n$ highways in the country.
-    \item $p(X_1 = 1, Y = 4 \,|\, \theta) = \int_{X_2} \int_{X_3} \dots \int_{X_n} p(X_1 = 1, Y = 4, X_2 = x_2, X_3 = x_3, \dots, X_n = x_n \, | \, \theta) dx_2, dx_3, \dots dx_n$
-    \item \textbf{We need to be able to marginalise out $X_2, \dots, X_n$ to answer the query.}
-\end{itemize}
-\end{frame}
+%\begin{itemize}
+%    \item today = Thursday = $Y = 4$.
+%    \item Traffic jam model: $\theta$ for all $\{X_i\}_{i=1}^n$ highways in the country.
+%    \item $p(X_1 = 1, Y = 4 \,|\, \theta) = \int_{X_2} \int_{X_3} \dots \int_{X_n} p(X_1 = 1, Y = 4, X_2 = x_2, X_3 = x_3, \dots, X_n = x_n \, | \, \theta) dx_2, dx_3, \dots dx_n$
+%    \item \textbf{We need to be able to marginalise out $X_2, \dots, X_n$ to answer the query.}
+%\end{itemize}
+%\end{frame}
 
 \begin{frame}{Probabilistic Inference}
-    \textbf{Problem:} Probabilistic inference task, such as marginalisation, are often intractable for interesting models.
+\textbf{Problem:} Probabilistic inference task are often intractable for interesting models.
 
 \begin{table}
 \centering

@@ -2,20 +2,28 @@
 
 \begin{frame}{Challenges in Structure Learning}
 \begin{itemize}
-    \item The generated structure has to be complete and decomposable, i.e., a sparsely connected graph.
-    \item We are interested in structures that generalise well, many approaches learn deep trees that are prune to overfit.
-    \item Until recently\footnote{\scriptsize M. Trapp et al.: Bayesian learning of sum-product networks. In NeurIPS, 2019.\label{fn:bspn}}, there has been no clear defined goal or principle of what makes a good structure.
+    \item The structure has to be smooth and decomposable, i.e.,~a sparsely connected graph.
+    \item Structure learning has to be efficient.
+    \item How to learn structures that generalise well, many approaches learn deep trees that are prune to overfitting.
+    \item What is a good SPN structure? or What is a good principle to derive an SPN structure?\footnote{\scriptsize M. Trapp et al.: Bayesian learning of sum-product networks. In NeurIPS, 2019.\label{fn:bspn}}
 \end{itemize}
 \end{frame}
 
 
 \begin{frame}{General-Purpose Learners (Selection)}{}
 \begin{itemize}
-    \item LearnSPN\footnote{\tiny R. Gens \& P. Domingos: Learning the structure of sum-product networks. In ICML, 2013.} recursively constructs sum nodes using clustering and product nodes using independence test. The resulting SPN is a tree.
-    \item ID-SPN\footnote{\tiny A. Rooshenas \& D. Lowd: Learning Sum-Product Networks with Direct and Indirect Variable Interactions. In ICML, 2014.} is a generalisation of LearnSPN with tractable Markov networks as leaves.
-    \item RAT-SPN\footnote{\tiny R. Peharz et al.: Random sum-product networks: A simple but effective approach to probabilistic deep learning. In UAI, 2019.} constructs region-graphs (meta-graph over SPNs) with random decompositions.
-    \item BSPN\footnotemark[8] learns structures and parameters using Bayesian inference.
+    \item LearnSPN\footnote{\scriptsize R. Gens \& P. Domingos: Learning the structure of sum-product networks. In ICML, 2013.} recursively constructs a tree structure.
+    \item ID-SPN\footnote{\scriptsize A. Rooshenas \& D. Lowd: Learning Sum-Product Networks with Direct and Indirect Variable Interactions. In ICML, 2014.} is a generalisation of LearnSPN with tractable Markov networks as leaves.
+    \item \textbf{RAT-SPN}\footnote{\scriptsize R. Peharz et al.: Random sum-product networks: A simple but effective approach to probabilistic deep learning. In UAI, 2019.} constructs large SPNs with random decompositions.
+    \item \textbf{BSPN}\footnotemark[8] a well-principled framework to learn structures using Bayesian inference.
 \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Random Sum-Product Networks}{}
+
+    Todo
+
 \end{frame}
 
 %\begin{frame}{Bayesian Structure \& Parameter Learning \small $[$Trapp2019$]$}
@@ -32,12 +40,25 @@
 %\end{figure}%
 %\end{frame}
 
-\begin{frame}{Bayesian Structure \& Parameter Learning}
+\begin{frame}{Bayesian Structure}
+    \begin{block}{Why care about Bayesian structure learning?}
+
 \begin{itemize}
-    \item We assume $\graph$ is a tree-shaped region graph, i.e., the SPN is a \emph{not} a tree.
-    \item For each dimension $d$ we introduce a latent variable $Y_{\partition,d}$ at each partition node (bucket of product nodes).
-    \item The latent variables represent an assign of $d$ to a child, given a unique path leading to the node.
-\end{itemize}
+        \item Competitive results.
+        \item Occam's razor effect prevents overfitting.
+        \item Works on heterogeneous data domains
+        \item We can use nonparametric formulations, e.g.~infinite SPNs.
+        \item Can be used in cases of missing values, by using exact marginalisation of missing values.
+    \end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{Bayesian Structure}
+%\begin{itemize}
+%    \item We assume $\graph$ is a tree-shaped region graph, i.e., the SPN is a \emph{not} a tree.
+%    \item For each dimension $d$ we introduce a latent variable $Y_{\partition,d}$ at each partition node (bucket of product nodes).
+%    \item The latent variables represent an assign of $d$ to a child, given a unique path leading to the node.
+%\end{itemize}
 
 \begin{figure}
     \centering
@@ -60,14 +81,12 @@
         \plate [inner xsep=0.3cm] {xyt} {(x)(y)(t)} {$d\!\in\!1\!:\!D$} ;
         \plate [inner xsep=0.3cm] {xz} {(x)(z)(xyt.north west)} {$n\!\in\!1\!:\!N$} ;
     \end{tikzpicture}
-    \caption{Generative model for Bayesian structure and parameter learning.}\label{fig:BSPN}
+    \caption{Generative model for Bayesian structure learning.}\label{fig:BSPN}
 \end{figure}
 \end{frame}
 
-\begin{frame}{Bayesian Structure \& Parameter Learning}
-\begin{itemize}
-    \item Posterior inference can be performed using ancestral within Gibbs sampling.
-\end{itemize}
+\begin{frame}{Bayesian Structure}
+Posterior inference can be performed using ancestral within Gibbs sampling.
 
 \begin{figure}
     \centering
@@ -90,18 +109,13 @@
         \plate [inner xsep=0.3cm] {xyt} {(x)(y)(t)} {$d\!\in\!1\!:\!D$} ;
         \plate [inner xsep=0.3cm] {xz} {(x)(z)(xyt.north west)} {$n\!\in\!1\!:\!N$} ;
     \end{tikzpicture}
-    \caption{Generative model for Bayesian structure and parameter learning.}\label{fig:BSPN}
+    \caption{Generative model for Bayesian structure and learning.}\label{fig:BSPN}
 \end{figure}
 \end{frame}
 
-\begin{frame}{Bayesian Structure \& Parameter Learning}
-    \begin{itemize}
-        \item This approach obtains competitive results.
-        \item It can be used in heterogeneous data domains and can be extended to nonparametric formulations.
-        \item And this approach can be used in cases of missing values, using exact marginalisation.
-    \end{itemize}
-
-\centering
+\begin{frame}{Bayesian Structure - Missing Values Experiment}
+Performance under increasing amount of missing values (missing completely at random).
+\begin{center}
     \begin{tikzpicture}%
 \begin{axis}[%
     width=8cm,%
@@ -161,6 +175,7 @@
 %
 \end{axis}%
 \end{tikzpicture}
+\end{center}
 \end{frame}
 
 
