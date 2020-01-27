@@ -31,8 +31,19 @@
 
 
 \begin{frame}{Random Sum-Product Networks}{}
+    \textbf{Idea:} Use a large structure with random decompositions.
 
-    Todo
+    \begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{example_RAT-SPN-eps-converted-to}
+    \end{figure}
+
+    \pause
+
+    \begin{figure}
+    \centering
+    \includegraphics[width=0.6\textwidth]{transfer-testing-lambda-0-2-crop}
+\end{figure}
 
 \end{frame}
 
@@ -53,11 +64,10 @@
 \begin{frame}{Bayesian Structure}
 \begin{block}{Why care about Bayesian structure learning?}
 \begin{itemize}
-        \item Competitive results.
         \item Occam's razor effect prevents overfitting.
-        \item Works on heterogeneous data domains
-        \item We can use nonparametric formulations, e.g.~infinite SPNs.
-        \item Can be used in cases of missing values, by using exact marginalisation of missing values.
+        \item Works on discrete, continuous and heterogeneous data domains.
+        \item We can use nonparametric formulations, e.g.~infinite SPNs, for continual learning.
+        \item Structures can be inferred even in cases of missing values using exact marginalisation.
     \end{itemize}
 \end{block}
 \end{frame}
@@ -68,7 +78,7 @@
 %    \item For each dimension $d$ we introduce a latent variable $Y_{\partition,d}$ at each partition node (bucket of product nodes).
 %    \item The latent variables represent an assign of $d$ to a child, given a unique path leading to the node.
 %\end{itemize}
-
+Generative model for Bayesian learning of SPNs.
 \begin{figure}
     \centering
     \begin{tikzpicture}
@@ -90,12 +100,12 @@
         \plate [inner xsep=0.3cm] {xyt} {(x)(y)(t)} {$d\!\in\!1\!:\!D$} ;
         \plate [inner xsep=0.3cm] {xz} {(x)(z)(xyt.north west)} {$n\!\in\!1\!:\!N$} ;
     \end{tikzpicture}
-    \caption{Generative model for Bayesian structure learning.}\label{fig:BSPN}
+    %\caption{Generative model for Bayesian structure learning.}\label{fig:BSPN}
 \end{figure}
 \end{frame}
 
 \begin{frame}{Bayesian Structure}
-Posterior inference can be performed using ancestral sampling within Gibbs sampling.
+Posterior inference using ancestral sampling within Gibbs.
 
 \begin{figure}
     \centering
@@ -118,7 +128,7 @@ Posterior inference can be performed using ancestral sampling within Gibbs sampl
         \plate [inner xsep=0.3cm] {xyt} {(x)(y)(t)} {$d\!\in\!1\!:\!D$} ;
         \plate [inner xsep=0.3cm] {xz} {(x)(z)(xyt.north west)} {$n\!\in\!1\!:\!N$} ;
     \end{tikzpicture}
-    \caption{Generative model for Bayesian structure and learning.}\label{fig:BSPN}
+    %\caption{Generative model for Bayesian structure and learning.}\label{fig:BSPN}
 \end{figure}
 \end{frame}
 
@@ -132,7 +142,9 @@ Posterior inference can be performed using ancestral sampling within Gibbs sampl
 
 
 \begin{frame}{Bayesian Structure - Missing Values Experiment}
-Performance under increasing amount of missing values (missing completely at random).
+Performance under increasing amount of missing values.
+
+\begin{figure}
 \begin{center}
     \begin{tikzpicture}%
 \begin{axis}[%
@@ -159,7 +171,7 @@ Performance under increasing amount of missing values (missing completely at ran
     };%
 \addlegendentry{LearnSPN}
 %
-\addplot [color=black, dashed, mark=square*, mark options={solid},visible on=<3->] coordinates {
+\addplot [color=black, dashed, mark=square*, mark options={solid},visible on=<2->] coordinates {
     (20, -52.9306308300396)%
     (40, -53.669159658525054)%
     (60, -53.804286870223166)%
@@ -167,7 +179,7 @@ Performance under increasing amount of missing values (missing completely at ran
     };%
 \addlegendentry{LearnSPN$^\star$}%
 
-\addplot [color=violet, dotted, mark=*, mark options={solid},visible on=<2->] coordinates {
+\addplot [color=violet, dotted, mark=*, mark options={solid},visible on=<1->] coordinates {
     (20, -52.332443930626056)%
     (40, -52.24919890693739)%
     (60, -53.824333727580374)%
@@ -175,7 +187,7 @@ Performance under increasing amount of missing values (missing completely at ran
     };%
 \addlegendentry{ID-SPN}
 %
-\addplot [color=violet, dotted, mark=square*, mark options={solid},visible on=<4->] coordinates {
+\addplot [color=violet, dotted, mark=square*, mark options={solid},visible on=<2->] coordinates {
     (20, -51.71630289170897)%
     (40, -52.4355408358714)%
     (60, -52.30368237732657)%
@@ -183,7 +195,7 @@ Performance under increasing amount of missing values (missing completely at ran
     };%
 \addlegendentry{ID-SPN$^\star$}
 
-\addplot [color=blue, solid, mark=*, mark options={solid}, visible on=<5->] coordinates {
+\addplot [color=blue, solid, mark=*, mark options={solid}, visible on=<3->] coordinates {
     (20, -51.784)%
     (40, -51.997)%
     (60, -52.415)%
@@ -194,6 +206,10 @@ Performance under increasing amount of missing values (missing completely at ran
 \end{axis}%
 \end{tikzpicture}
 \end{center}
+\caption{Results on EachMovie (D: 500, N: 5526) dataset.}
+\end{figure}
+
+
 \end{frame}
 
 

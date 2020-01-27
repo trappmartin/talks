@@ -33,18 +33,22 @@ Approaches that go beyond NN techniques:
 
 \begin{frame}{Safe Semi-Supervised Learning}{}
     \begin{block}{Contrastive Pessimistic Likelihood Estimation (CPLE)}
-\begin{itemize}
-    \item Assume $\mathcal{X} = \{\bm x_n, \lambda_n\}_{n=1}^N$, $\lambda_n \in \mathcal{R}^K$ to be a small set of labelled data points and $\mathcal{U} = \{\bm u_m\}_{m=1}^M$ a set of unlabelled data points.
-    \item $\theta^+$ is an SPN trained solely on $\mathcal{X}$
-    \item We propose soft labels $\bm q_m \in \Delta_{K-1}$ for all unlabelled data points, e.g.~randomly.
-    \item We initialise the semi-supervised SPN $\theta$ randomly, then:
+        \begin{itemize}
+            \item $\mathcal{X} = \{\bm x_n, \lambda_n\}_{n=1}^N$, $\lambda_n \in \mathcal{R}^K$  = labelled data points
+            \item $\mathcal{U} = \{\bm u_m\}_{m=1}^M$ = unlabelled data points
+            \item $\bm q_m \in \Delta_{K-1}$ = soft labels
+            \item $\theta^+$ = SPN trained only on $\mathcal{X}$
+            \item $\theta$ = SPN trained using CPLE on all data points
+            \item $\mathcal{L}(\theta | \mathcal{X}, \mathcal{U}, \bm q)$ = likelihood or conditional likelihood
+        \end{itemize}
+
     \pause
+    Training:
     \begin{enumerate}
-        \item Update all soft labels so that the performance of $\theta^+$ on all data points is better than $\theta$.
-        \item Update $\theta$ so that the performance of $\theta$ on all data points is better than $\theta^+$.
+        \item Update soft labels so that $\mathcal{L}(\theta^+ | \mathcal{X}, \mathcal{U}, \bm q) > \mathcal{L}(\theta | \mathcal{X}, \mathcal{U}, \bm q)$.
+        \item Update $\theta$ so that $\mathcal{L}(\theta^+ | \mathcal{X}, \mathcal{U}, \bm q) < \mathcal{L}(\theta | \mathcal{X}, \mathcal{U}, \bm q)$.
         \item If not converged, move to step 1.
     \end{enumerate}
-\end{itemize}
 
 \end{block}
 \end{frame}

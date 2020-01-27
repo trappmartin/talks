@@ -1,7 +1,7 @@
 \section{Probabilistic Machine Learning}
 
 \begin{frame}{Introduction}
-Probabilistic machine learning: How can we make machines that learn from data using tools from probability theory?
+How can we make machines that learn from data using tools from probability theory?
 
 Uncertainty is key to probabilistic machine learning and is expressed in all forms, e.g.~noise in the data, uncertainty over the predictions, uncertainty over the model.
 \end{frame}
@@ -18,12 +18,12 @@ Uncertainty is key to probabilistic machine learning and is expressed in all for
 %\end{frame}
 
 \begin{frame}{Probabilistic Inference}
-\textbf{Problem:} Probabilistic inference task are often intractable for interesting models.
+\textbf{Challenge:} Probabilistic inference is often difficult for interesting models.
 
 \begin{table}
 \centering
 \begin{tabular}{llll}
-             & GANs & VAEs & Flows  \\
+             & GANs & VAEs & Flows \\
 Sampling     & Y    & Y    & Y          \\
 Density      & N    & N/Y  & Y           \\
 Marginals    & N    & N    & ?           \\
@@ -31,6 +31,6 @@ Conditionals & N    & N    & ?           \\
 Moments      & N    & N    & ?           \\
 MAP          & N    & N    & ?
 \end{tabular}
-\caption{\scriptsize Robert Peharz, Sum-Product Networks and Deep Learning: A Love Marriage. Talk at ICML, 2019.}
+\caption{\scriptsize Robert Peharz, Sum-Product Networks and Deep Learning: A Love Marriage. ICML workshop on TPM, 2019.}
 \end{table}
 \end{frame}

@@ -25,16 +25,16 @@ MAP          & N    & N    & ?     & N/Y
 \end{frame}
 
 \begin{frame}{What is a Sum-Product Network?}
-\begin{itemize}
-    \item Let $\X = \{X_1, \dots, X_D\}$ be set of random variables.
-  \item A Probabilistic Circuit (PC) over $\X$ is a tuple $\SPN = (\graph, \scope, \tp)$, where
+Let $\X = \{X_1, \dots, X_D\}$ be set of random variables.
+
+A probabilistic circuit over $\X$ is a tuple $\SPN = (\graph, \scope, \tp)$, where
   \begin{itemize}
     \item $\graph$ is a computational graph.
     \item $\scope$ is a scope function.
     \item $\tp$ is a set of parameters, e.g.~sum-weights and leaf node parameters.
   \end{itemize}
-  \item A Sum-Product Network (SPN) is a \emph{smooth} and \emph{decomposable} PC.
-\end{itemize}
+
+A Sum-Product Network (SPN) is a \emph{smooth} (complete) and \emph{decomposable} probabilistic circuit.
 \end{frame}
 
 \begin{frame}{Leaves $\Leaf$ in $\graph$}
@@ -148,6 +148,7 @@ The scope function assigning each node $\Node$ in a sub-set of $\X$,\footnote{\s
 \item If $\Node$ is a sum or product, then $\scope(\Node) = \bigcup_{\Node' \in \ch(\Node)} \scope(\Node')$.
 \end{enumerate}
 \end{defbox}
+\pause
 In case of SPNs we also assume that:
 \begin{defbox}
 \begin{enumerate}
@@ -167,3 +168,12 @@ In case of SPNs we also assume that:
 
 \small Note that we define $\Leaf(x):=1$ for every $x$ if and only if $\scope(\Leaf) = \emptyset$.
 }
+
+\begin{frame}{Interpretations of SPNs}
+    What is an SPN?
+    \begin{itemize}
+        \item Multi-linear feed-forward Neural Network (NN) with non-linear inputs.
+        \item Deep structured mixture model with exponentially many components.
+        \item Hierarchical tensor decomposition.
+    \end{itemize}
+\end{frame}
