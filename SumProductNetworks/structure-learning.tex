@@ -1,5 +1,3 @@
-\section{Structure Learning}
-
 \begin{frame}{Challenges in Structure Learning}
 \begin{itemize}
     \item The structure has to be smooth and decomposable, i.e.,~a sparsely connected graph.
@@ -14,8 +12,8 @@
 \begin{itemize}
     \item LearnSPN\footnote{\scriptsize R. Gens \& P. Domingos: Learning the structure of sum-product networks. In ICML, 2013.} recursively constructs a tree structure.
     \item ID-SPN\footnote{\scriptsize A. Rooshenas \& D. Lowd: Learning Sum-Product Networks with Direct and Indirect Variable Interactions. In ICML, 2014.} is a generalisation of LearnSPN with tractable Markov networks as leaves.
-    \item \textbf{RAT-SPN}\footnote{\scriptsize R. Peharz et al.: Random sum-product networks: A simple but effective approach to probabilistic deep learning. In UAI, 2019.} constructs large SPNs with random decompositions.
-    \item \textbf{BSPN}\footnotemark[8] a well-principled framework to learn structures using Bayesian inference.
+    \item RAT-SPN\footnote{\scriptsize R. Peharz et al.: Random sum-product networks: A simple but effective approach to probabilistic deep learning. In UAI, 2019.} constructs large SPNs with random decompositions.
+    \item BSPN\footnotemark[8] a well-principled framework to learn structures using Bayesian inference.
 \end{itemize}
 \end{frame}
 \fi
@@ -24,13 +22,13 @@
 \begin{itemize}
     \item LearnSPN {\scriptsize [R. Gens \& P. Domingos: Learning the structure of sum-product networks. In ICML, 2013.]}
     \item ID-SPN {\scriptsize [A. Rooshenas \& D. Lowd: Learning Sum-Product Networks with Direct and Indirect Variable Interactions. In ICML, 2014.]}
-    \item \textbf{RAT-SPN} {\scriptsize [R. Peharz et al.: Random sum-product networks: A simple but effective approach to probabilistic deep learning. In UAI, 2019.]}
-    \item \textbf{Bayesian SPN} {\scriptsize [M. Trapp et al.: Bayesian learning of sum-product networks. In NeurIPS, 2019.]}
+    \item RAT-SPN {\scriptsize [R. Peharz et al.: Random sum-product networks: A simple but effective approach to probabilistic deep learning. In UAI, 2019.]}
+    \item Bayesian SPN {\scriptsize [M. Trapp et al.: Bayesian learning of sum-product networks. In NeurIPS, 2019.]}
 \end{itemize}
 \end{frame}
 
 
-\begin{frame}{Random Sum-Product Networks}{}
+\begin{frame}{Random Structures}{}
     \textbf{Idea:} Use a large structure with random decompositions.
 
     \begin{figure}
@@ -62,7 +60,7 @@
 %\end{frame}
 
 \begin{frame}{Bayesian Structure}
-\begin{block}{Why care about Bayesian structure learning?}
+\begin{block}{Why do we want Bayesian structure learning?}
 \begin{itemize}
         \item Occam's razor effect prevents overfitting.
         \item Works on discrete, continuous and heterogeneous data domains.
@@ -70,6 +68,22 @@
         \item Structures can be inferred even in cases of missing values using exact marginalisation.
     \end{itemize}
 \end{block}
+\end{frame}
+
+\begin{frame}{Bayesian Parameter Learning}
+The key insight for Bayesian parameter learning is that \emph{sum nodes can be interpreted as latent variables}.
+
+\pause
+\begin{figure}
+  \centering{
+    \includestandalone[width=0.7\textwidth]{InducedTree}
+    }
+\end{figure}
+
+\begin{align}
+    \SPT &\sim \prod_{(\SumNode,\Child) \in \SPT_E} w_{\SumNode,\Child}\, ,& \bm x \cbar \SPT &\sim \prod_{\Leaf \in \SPT_V} p(x_{\scope(\Leaf)} \cbar \theta_{\Leaf})
+\end{align}
+
 \end{frame}
 
 \begin{frame}{Bayesian Structure}

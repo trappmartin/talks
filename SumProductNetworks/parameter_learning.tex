@@ -1,36 +1,21 @@
-\section{Parameter Learning}
+%\section{Parameter Learning}
 
 \begin{frame}{Parameter Learning in SPNs}{}
-SPNs are differentiable multi-linear NNs with non-linear inputs, thus common parameter learning for NNs can be applied.
+%SPNs are differentiable multi-linear NNs with non-linear inputs, thus common parameter learning for NNs can be applied.
+We can use backprop for parameter learning in SPNs.
 
-Approaches that go beyond NN techniques:
+More advanced approaches:
 \begin{itemize}
     \item Expectation Maximisation {\scriptsize [R. Peharz et al.: On the latent variable interpretation of sum-product networks. TPAMI, 2017.]}
     \item Variational Inference {\scriptsize [H. Zhao et al.: Collapsed variational inference for sum-product networks. In ICML, 2016.]}
-    \item Bayesian moment matching {\scriptsize [A. Rashwan et al.: Online and distributed Bayesian moment matching for parameter learning in sum-product networks. In AISTATS, 2016.]}
-    \item \textbf{Safe Semi-Supervised Learning} {\scriptsize [M. Trapp et al.: Safe semi-supervised learning of sum-product networks. In UAI, 2017.]}
+    \item Bayesian moment matching {\scriptsize [A. Rashwan et al.: Online and distributed Bayesian moment matching for parameter learning in SPNs. In AISTATS, 2016.]}
+    \item Safe Semi-Supervised Learning {\scriptsize [M. Trapp et al.: Safe semi-supervised learning of sum-product networks. In UAI, 2017.]}
 \end{itemize}
 
-%\begin{columns}
-%\begin{column}{\linewidth}
-%\begin{block}{Generative Learning\footnote{\scriptsize H. Poon \& P. Domingos: Sum-product networks: A new deep architecture. In UAI, 2011.}}
-%\begin{equation}
-%  \mathcal{L}(\theta \,| \, \mathcal{X}) = \sum_{n=1}^N \log \f - \log \fz\, , \; \; \xn \in \mathbb{R}^D
-%\end{equation}
-%\end{block}
-%Note that $\fz$ is the partition function which can be evaluated efficiently using a single upward pass.
-%%\hline
-%\begin{block}{Discriminative Learning\footnote{\scriptsize R. Gens \& P. Domingos: Discriminative learning of sum-product networks. In NeurIPS, 2012.}}
-%\begin{equation}
-%  \begin{aligned}
-%    \mathcal{L}(\theta, \lambda \,| \, \mathcal{X}) = \sum_{n=1}^N &\log \fy - \log \f\, , \; \; \xn \in \mathbb{R}^D, \, \lambda_n \in \mathbb{R}
-%\end{aligned}
-%\end{equation}
-%\end{block}
-%\end{column}
-%\end{columns}
+Gradient-based optimisation in deep tree-structured SPNs has implicit acceleration effects. {\scriptsize [M. Trapp et al.: Optimisation of overparametrized sum-product networks. ICML Workshop on TPM, 2019.]}
 \end{frame}
 
+\iffalse
 \begin{frame}{Safe Semi-Supervised Learning}{}
     \begin{block}{Contrastive Pessimistic Likelihood Estimation (CPLE)}
         \begin{itemize}
@@ -49,23 +34,19 @@ Approaches that go beyond NN techniques:
         \item Update $\theta$ so that $\mathcal{L}(\theta^+ | \mathcal{X}, \mathcal{U}, \bm q) < \mathcal{L}(\theta | \mathcal{X}, \mathcal{U}, \bm q)$.
         \item If not converged, move to step 1.
     \end{enumerate}
-
 \end{block}
 \end{frame}
+\fi
 
-%\begin{equation}
-%  \text{CPLE} = \argmax_{\theta \in \Theta} \argmin_{\bm q \in \Delta_{K-1}^M} \mathcal{L}(\theta,  \lambda, \bm{q} \,| \, \mathcal{X}, \mathcal{U}) - \mathcal{L}(\theta^+, \lambda, \bm{q} \,| \, \mathcal{X}, \mathcal{U})
-%\end{equation}
-
-\begin{frame}{Semi-Supervised Learning}{}
+\begin{frame}{Safe Semi-Supervised Learning - Example}{}
 \begin{figure}
     \includegraphics[width=.47\textwidth]{semisupervised_2_2}~
     \includegraphics[width=.47\textwidth]{semisupervised_20_2}
     \caption{Decision boundary of a semi-supervised SPN at iteration 1 (left) and after convergence (right).}
 \end{figure}
-
 \end{frame}
 
+\iffalse
 \begin{frame}{Over-parametrization in SPNs\footnote{\scriptsize M. Trapp et al.: Optimisation of Overparametrized Sum-Product Networks. ICML Workshop on Tractable Probabilistic Models, 2019.}}{}
 \begin{columns}
 \begin{column}{\linewidth}
@@ -84,15 +65,13 @@ Approaches that go beyond NN techniques:
 \begin{align}
     \wt &\approx \wt + {\color{cyan} \rho^{(t)}} \nabla_{\wt} + {\color{blue}\sum_{\tau=1}^{t-1} \mu^{(t,\tau)} \nabla_{w^{(\tau)}_k}}
 \end{align}\\
-%  \begin{tcolorbox}[lower separated=false]
-%  \small{Gradient-based optimisation in deep tree-structured sum-product network with small (fixed) learning rate and near zero initialisation of the weights is equivalent to gradient-based optimisation with adaptive and time-varying {\color{cyan} learning rate} and {\color{blue} momentum term}.}
-% \end{tcolorbox}
 }
 \end{column}
 \end{columns}
 \end{frame}
+\fi
 
-\begin{frame}{Over-parametrization Experiment}
+\begin{frame}{Over-parametrization - Experiment}
 \begin{columns}
 \begin{column}{\linewidth}
 \includegraphics[width=\textwidth]{nltcs_experiment}

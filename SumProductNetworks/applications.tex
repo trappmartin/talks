@@ -12,7 +12,7 @@ Some existing applications of SPNs:
 
 \begin{frame}{Gaussian Processes}
     A Gaussian Process (GP) is a collection of random variables indexed by an arbitrary
-    covariate space $\mathcal{T}$, where any finite subset is Gaussian distributed.
+    covariate space $\mathcal{X}$, where any finite subset is Gaussian distributed.
 
     A GP can be understood as a prior over functions.
 
@@ -23,18 +23,19 @@ Some existing applications of SPNs:
 \end{frame}
 
 \begin{frame}{Gaussian Processes}
-A GP is uniquely specified by a \emph{mean-function} $m: \mathcal{T} \rightarrow \mathbb{R}$ and a \emph{covariance function} $k: \mathcal{T} \times \mathcal{T} \rightarrow \mathbb{R}$.
-%  \item Given a dataset $\data = \{(\x_n, y_n)\}_{n=1}^N$ with N observations where $f_n$ is the RV of observation $(\x_n, y_n)$, the joint distribution of the trainings data and a new datum $\xnew$ is Gaussian and the conditional of any Gaussian joint is again a Gaussian.
+A GP is uniquely specified by a \emph{mean-function} $m: \mathcal{X} \rightarrow \mathbb{R}$ and a \emph{covariance function} $k: \mathcal{X} \times \mathcal{X} \rightarrow \mathbb{R}$.
 
 The posterior predictive distribution (used for predictions) of a GP is Gaussian, i.e.,
-  \begin{equation}
+\begin{equation}
     p(f^* \cbar \bm f) = \Normal\left( k^T_{\xnew,\X} k^{-1}_{\X,\X} \bm f , k_{\xnew,\xnew} - k_{\xnew,\X} k^{-1}_{\X,\X}k^T_{\xnew,\X}   \right)
-  \end{equation}
-\textbf{Problem:} How to compute the inversion of $k_{\X,\X}$?
-%\end{itemize}
+\end{equation}
+The inversion of $k_{\X,\X}$ is usually computes using the Cholesky decomposition of $k_{\X,\X}$?
+
+\pause
+\textbf{Problem:} The Cholesky decomposition scales $\mathcal{O}(N^3)$.
 \end{frame}
 
-
+\iffalse
 \begin{frame}{Gaussian Processes}
 We can use the Cholesky decomposition. % of $k_{\X,\X} = LL^T$ and take $(L^{-1})^T L^{-1}$ instead of $k^{-1}_{\X,\X}$.
 
@@ -46,12 +47,12 @@ Solutions:
   \item Use local experts to approximate the GP or approximate the computation of predictions.
 \end{enumerate}
 \end{frame}
-%\iffalse
+\fi
 
 \begin{frame}{Local Experts}
 \textit{Local experts to approximate the GP or approximate the computation of predictions.}
 
-A natural way is to partition $\mathcal{T}$ into sub-sets $\mathcal{T}^{(k)} \; , k=1, \dots, K$. This is called the naive-local-experts model.
+A natural way is to partition $\mathcal{X}$ into sub-sets $\mathcal{X}^{(k)} \; , k=1, \dots, K$. This is called the naive-local-experts model.
 \begin{figure}
   \includegraphics[width=0.8\textwidth]{NLE}
 \end{figure}
@@ -63,7 +64,7 @@ Existing solutions to discontinuities.
 \begin{enumerate}
     \item Product-of-Experts (PoE) / Bayesian Committee Machine (BCM)
   \begin{itemize}
-    \item Instead of partition $T$, partition $\data$ into sub-sets $\data^{(k)}$.
+      \item Instead of partition $\mathcal{X}$, partition $\data$ into sub-sets $\data^{(k)}$.
     \item Use an algorithm that works only on the sub-sets.
     \item \textbf{Problem:} Not a stochastic process, results in over-conservative or over-confident estimates.
   \end{itemize}
@@ -83,7 +84,7 @@ Existing solutions to discontinuities.
 Why not use a large finite mixture of NLEs?
 \pause
 
-Deep Structured Mixture of GPs (DSMGP):\footnote{\scriptsize M. Trapp et al.: Deep structure mixtures of Gaussian Processes. To appear in AISTATS, 2020.}
+Deep Structured Mixture of GPs (DSMGP)\footnote{\scriptsize M. Trapp et al.: Deep structure mixtures of Gaussian Processes. To appear in AISTATS, 2020.}:
 \begin{enumerate}
   \item A DSMGP is an SPN (large structured mixture) over Gaussian measures.
   \item DSMGPs perform exact Bayesian model averaging over a large set of NLEs.
@@ -95,11 +96,18 @@ Benefits of DSMGPs:
 \begin{itemize}
     \item DSMGPs are a sound stochastic process.
     \item We can perform exact posterior inference in DSMGPs.
-    \item DSMGPs have similar computational costs compared to other expert-based approaches and capture predictive uncertainties consistently better.
+    \item DSMGPs have similar computational costs compared to other expert-based approaches.
+    \item We can exploit the structure to perform Cholesky updates incrementally and share computations.
+    \item DSMGPs capture predictive uncertainties consistently better.
+    \item They do not suffer from severe discontinuities and can be used to model non-stationary data.
 \end{itemize}
 
-\begin{figure}
-  \centering
-  \includegraphics[width=0.5\linewidth]{comparison}
-\end{figure}
+%\begin{figure}
+%  \centering
+%  \includegraphics[width=0.5\linewidth]{comparison}
+%\end{figure}
+\end{frame}
+
+\begin{frame}{DSMGPs - Example}
+    \animategraphics[loop,controls,width=\textwidth]{10}{anim-}{0}{49}
 \end{frame}
